@@ -16,6 +16,10 @@ debug('Whitelisting origins: ' + originWhitelist);
 // Set up rate-limiting to avoid abuse of the public server.
 const checkRateLimit = require('./lib/rate-limit')(process.env.CORSESCAPE_RATELIMIT);
 
+require('https').globalAgent.options.ca = require('ssl-root-cas').create();
+
+// require('https').globalAgent.options.rejectUnauthorized = false  // SECURITY RISK
+
 const corsProxy = require('./lib/cors-escape');
 corsProxy.createServer({
     originBlacklist,
