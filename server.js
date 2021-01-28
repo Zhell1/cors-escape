@@ -22,6 +22,9 @@ require('https').globalAgent.options.ca = require('ssl-root-cas').create();
 
 const corsProxy = require('./lib/cors-escape');
 corsProxy.createServer({
+    httpProxyOptions: {         // added by zhell, disable ssl entirely, prevent "couldn't find first certificate" errors
+      secure: false
+    },
     originBlacklist,
     originWhitelist,
     requireHeaders: ['origin'],
