@@ -18,7 +18,7 @@ const checkRateLimit = require('./lib/rate-limit')(process.env.CORSESCAPE_RATELI
 
 require('https').globalAgent.options.ca = require('ssl-root-cas').create();
 
-// require('https').globalAgent.options.rejectUnauthorized = false  // SECURITY RISK
+require('https').globalAgent.options.rejectUnauthorized = false  // disable SSL
 
 const corsProxy = require('./lib/cors-escape');
 corsProxy.createServer({
