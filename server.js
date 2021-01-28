@@ -22,9 +22,6 @@ require('https').globalAgent.options.rejectUnauthorized = false  // disable SSL
 
 const corsProxy = require('./lib/cors-escape');
 corsProxy.createServer({
-    httpProxyOptions: {         // added by zhell, disable ssl entirely, prevent "couldn't find first certificate" errors
-      secure: false
-    },
     originBlacklist,
     originWhitelist,
     requireHeaders: ['origin'],
@@ -40,6 +37,7 @@ corsProxy.createServer({
     httpProxyOptions: {
         // Do not add X-Forwarded-For, etc. headers, because Heroku already adds it.
         xfwd: false,
+        secure: false // added by zhell, disable ssl entirely, prevent "couldn't find first certificate" errors
     },
     spoofOrigin: true
 }).listen(port, host, () => {
